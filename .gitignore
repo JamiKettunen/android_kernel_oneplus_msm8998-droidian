@@ -55,7 +55,12 @@ Module.symvers
 #
 # Debian directory (make deb-pkg)
 #
-/debian/
+/debian/*
+!/debian/compat
+!/debian/control
+!/debian/kernel-info.mk
+!/debian/rules
+!/debian/source/format
 
 #
 # tar directory (make tar*-pkg)
