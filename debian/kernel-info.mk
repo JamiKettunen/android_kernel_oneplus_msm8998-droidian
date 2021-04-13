@@ -8,7 +8,7 @@
 VARIANT = android
 
 # Kernel base version
-KERNEL_BASE_VERSION = 4.4-0
+KERNEL_BASE_VERSION = 4.4.153
 
 # The kernel cmdline to use
 KERNEL_BOOTIMAGE_CMDLINE = androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 sched_enable_hmp=1 sched_enable_power_aware=1 service_locator.enable=1 swiotlb=2048 androidboot.usbconfigfs=true androidboot.usbcontroller=a800000.dwc3 firmware_class.path=/vendor/firmware_mnt/image loop.max_part=7 buildvariant=userdebug
@@ -32,28 +32,17 @@ KERNEL_IMAGE_WITH_DTB = 1
 # Path to the DTB
 # If you leave this undefined, an attempt to find it automatically
 # will be made.
-#KERNEL_IMAGE_DTB = arch/arm64/boot/dts/qcom/my_dtb.dtb
+# FIXME: Use this line when appending more than 1 DTB is possible!
+#KERNEL_IMAGE_DTB = arch/arm64/boot/dts/qcom/cheeseburger-v2.1-pvt.dtb arch/arm64/boot/dts/qcom/dumpling-v2.1-pvt.dtb
+KERNEL_IMAGE_DTB = arch/arm64/boot/dts/qcom/cheeseburger-v2.1-pvt.dtb
 
 # Whether to include a DTB Overlay. Use 0 (no) or 1.
 KERNEL_IMAGE_WITH_DTB_OVERLAY = 0
-
-# Path to the DTB overlay.
-# If you leave this undefined, an attempt to find it automatically
-# will be made.
-#KERNEL_IMAGE_DTB_OVERLAY = arch/arm64/boot/dts/qcom/my_overlay.dtbo
 
 # Whether to include the DTB Overlay into the kernel image
 # Use 0 (no, default) or 1.
 # dtbo.img will always be shipped in the linux-bootimage- package.
 KERNEL_IMAGE_WITH_DTB_OVERLAY_IN_KERNEL = 0
-
-# Path to a specifc configuration file for mkdtboimg.
-# The default is to leave it undefined.
-#KERNEL_IMAGE_DTB_OVERLAY_CONFIGURATION = debian/custom_dtbo_config.cfg
-
-# Path to the DTB directory. Only define if KERNEL_IMAGE_DTB_OVERLAY_CONFIGURATION
-# is defined too.
-#KERNEL_IMAGE_DTB_OVERLAY_DTB_DIRECTORY = arch/arm64/boot/dts/qcom
 
 # Various other settings that will be passed straight to mkbootimg
 KERNEL_BOOTIMAGE_PAGE_SIZE = 4096
@@ -79,16 +68,6 @@ FLASH_ENABLED = 1
 # Do not enable if you don't know what you're doing
 FLASH_IS_LEGACY_DEVICE = 1
 
-# Device manufacturer. This must match the `ro.product.vendor.manufacturer`
-# Android property. If you don't want to specify this, leave it undefined,
-# FLASH_INFO_CPU will be checked instead.
-#FLASH_INFO_MANUFACTURER = 
-
-# Device model. This must match the `ro.product.vendor.model`
-# Android property. If you don't want to specify this, leave it undefined,
-# FLASH_INFO_CPU will be checked instead.
-#FLASH_INFO_MODEL = 
-
 # Device CPU. This will be grepped against /proc/cpuinfo to check if
 # we're running on the specific device. Note this is a last-resort
 # method, specifying FLASH_INFO_MANUFACTURER and FLASH_INFO_MODEL is
@@ -98,6 +77,8 @@ FLASH_INFO_CPU = Qualcomm Technologies, Inc MSM8998
 ########################################################################
 # Kernel build settings
 ########################################################################
+
+# NOTE: We can't boot when compiled with Clang, so fallback to GCC.
 
 # Whether to cross-build. Use 0 (no) or 1.
 BUILD_CROSS = 1
@@ -111,17 +92,11 @@ BUILD_TRIPLET = aarch64-linux-android-
 BUILD_CLANG_TRIPLET = aarch64-linux-gnu-
 
 # The compiler to use. Recent Android kernels are built with clang.
-BUILD_CC = clang
-
-# Extra paths to prepend to the PATH variable. You'll probably want
-# to specify the clang path here (the default).
-BUILD_PATH = /usr/lib/llvm-android-9.0/clang-r353983b/bin
-#BUILD_PATH = /usr/lib/llvm-android-6.0-4691093/bin
+BUILD_CC = aarch64-linux-android-gcc
 
 # Extra packages to add to the Build-Depends section. Mainline builds
 # can have this section empty, unless cross-building.
 # The default is enough to install the Android toolchain, including clang.
-# clang-android-6.0-4691093
 DEB_TOOLCHAIN = linux-initramfs-halium-generic:arm64, binutils-aarch64-linux-gnu, gcc-4.9-aarch64-linux-android, g++-4.9-aarch64-linux-android, libgcc-4.9-dev-aarch64-linux-android-cross
 
 # Where we're building on
