@@ -728,7 +728,7 @@ out:
 		get_current_time(&di->soc_pre_time);
 		/* store when soc changed */
 		power_supply_changed(di->batt_psy);
-		pr_info("soc:%d, soc_calib:%d, VOLT:%d, current:%d\n",
+		pr_debug("soc:%d, soc_calib:%d, VOLT:%d, current:%d\n",
 		soc, soc_calib, bq27541_battery_voltage(di) / 1000,
 		bq27541_average_current(di) / 1000);
 	}
@@ -988,7 +988,7 @@ static int bq27541_set_lcd_off_status(int off)
 			soc = bq27541_get_batt_bq_soc();
 			bq27541_di->lcd_off_delt_soc =
 					bq27541_di->soc_pre - soc;
-			pr_info("lcd_off_delt_soc:%d,soc=%d,soc_pre=%d\n",
+			pr_debug("lcd_off_delt_soc:%d,soc=%d,soc_pre=%d\n",
 			bq27541_di->lcd_off_delt_soc, soc,
 					bq27541_di->soc_pre);
 			get_current_time(&bq27541_di->lcd_off_time);
