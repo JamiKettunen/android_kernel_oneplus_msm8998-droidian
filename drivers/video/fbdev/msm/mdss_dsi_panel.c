@@ -1048,7 +1048,7 @@ static void mdss_dsi_panel_bl_ctrl(struct mdss_panel_data *pdata,
 	static bool first_bl_level = true;
 
 	if (first_bl_level || (bl_level == 0)){
-        printk("---backlight level = %d---\n", bl_level);
+        pr_debug("---backlight level = %d---\n", bl_level);
         first_bl_level = (bl_level == 0)? true : false;
 	}
 	if (pdata == NULL) {

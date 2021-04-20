@@ -4412,13 +4412,13 @@ static void synaptics_tpedge_limitfunc(void)
 	int limit_mode = 0;
 	int ret;
 
-	TPD_ERR("%s line %d F51_GRIP_CONFIGURATION = 0x%x\n",
+	TPD_DEBUG("%s line %d F51_GRIP_CONFIGURATION = 0x%x\n",
 		__func__, __LINE__, F51_CUSTOM_CTRL_BASE + 0x1b);
 	msleep(60);
 	ret = i2c_smbus_write_byte_data(ts_g->client, 0xff, 0x4);
 	limit_mode = i2c_smbus_read_byte_data(ts_g->client,
 					      F51_CUSTOM_CTRL_BASE + 0x1b);
-	TPD_ERR("%s limit_enable =%d,mode:0x%x !\n",
+	TPD_DEBUG("%s limit_enable =%d,mode:0x%x !\n",
 		__func__, limit_enable, limit_mode);
 	if (limit_mode) {
 		i2c_smbus_write_byte_data(ts_g->client, 0xff, 0x4);

@@ -497,7 +497,7 @@ static int fg_soc_calibrate(struct  bq27541_device_info *di, int soc)
 		if (di->batt_psy) {
 			first_enter = true;
 			soc_load = load_soc();
-			pr_info("soc=%d, soc_load=%d\n", soc, soc_load);
+			pr_debug("soc=%d, soc_load=%d\n", soc, soc_load);
 			if (soc_load < 0) {
 				/* get last soc error */
 				di->soc_pre = soc;
@@ -765,7 +765,7 @@ struct bq27541_device_info *di, int suspend_time_ms)
 			goto read_soc_err;
 		}
 		if (soc_pre != soc)
-			pr_err("bq27541_battery_soc = %d\n", soc);
+			pr_debug("bq27541_battery_soc = %d\n", soc);
 
 		soc_pre = soc;
 	} else {
@@ -982,7 +982,7 @@ static int bq27541_set_lcd_off_status(int off)
 {
 	int soc;
 
-	pr_info("off=%d\n", off);
+	pr_debug("off=%d\n", off);
 	if (bq27541_di) {
 		if (off) {
 			soc = bq27541_get_batt_bq_soc();
